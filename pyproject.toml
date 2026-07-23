@@ -3,13 +3,13 @@ requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "prettyplot"
+name = "customplots"
 version = "0.1.0"
 description = "Nicer-looking charts than pandas' defaults, in one import."
 readme = "README.md"
 requires-python = ">=3.9"
 license = { text = "MIT" }
-authors = [{ name = "prettyplot contributors" }]
+authors = [{ name = "customplots contributors" }]
 keywords = ["visualization", "matplotlib", "pandas", "charts", "plotting"]
 dependencies = [
     "matplotlib>=3.5",
@@ -20,4 +20,4 @@ dependencies = [
 Homepage = "https://github.com/nahmedi286179/vis"
 
 [tool.setuptools]
-packages = ["prettyplot"]
+packages = ["customplots"]

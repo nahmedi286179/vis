@@ -1,10 +1,10 @@
-# prettyplot
+# customplots
 
 Nicer-looking charts than pandas' defaults — in one import.
 
 pandas' built-in `.plot()` is great for a quick look, but the defaults are
 noisy: heavy spines, cramped titles, a color cycle that isn't colorblind-safe.
-`prettyplot` is a tiny wrapper (under 200 lines) that applies a clean,
+`customplots` is a tiny wrapper (under 200 lines) that applies a clean,
 validated theme and gives you a handful of plotting helpers that take the same
 pandas objects you already have.
 
@@ -20,7 +20,7 @@ Requires `matplotlib` and `pandas`.
 
 ```python
 import pandas as pd
-import prettyplot as pp
+import customplots as pp
 
 df = pd.DataFrame(
     {"north": [12, 15, 14, 18, 21, 24], "south": [8, 9, 13, 12, 16, 19]},
@@ -30,7 +30,7 @@ df = pd.DataFrame(
 pp.line(df, title="Revenue by region", ylabel="$k")
 ```
 
-The theme is applied automatically on `import prettyplot`. If another library
+The theme is applied automatically on `import customplots`. If another library
 resets matplotlib's style, call `pp.use()` again to reapply it.
 
 ### Helpers
