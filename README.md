@@ -51,15 +51,24 @@ customizing.
 ### Custom colors
 
 Every helper takes an optional `colors` argument. Leave it out to use the
-built-in colorblind-safe palette, or pass your own to override it:
+built-in colorblind-safe palette, or pass your own to override it. You can use
+plain **color names** — no need to know hex codes:
 
 ```python
-# one color per series
-pp.line(df, colors=["#111111", "#ff5500"])
+# one color per series, by name
+pp.line(df, colors=["black", "orange"])
+pp.bar(df, colors=["red", "green", "blue"])
 
 # a single color (accepts a list or a bare string)
-pp.hist(scores, colors="#8800ff")
+pp.hist(scores, colors="purple")
+
+# hex codes work too, if you want an exact shade
+pp.line(df, colors=["#111111", "#ff5500"])
 ```
+
+Common names: `black`, `white`, `gray` (or `grey`), `red`, `orange`, `yellow`,
+`green`, `blue`, `indigo`, `violet`, `purple`, `pink`, `brown`, `cyan`,
+`magenta` — plus over a thousand more that matplotlib recognizes.
 
 For multi-series charts (`line`, `bar`, `barh`) the colors are applied one per
 series, in order. For single-color charts (`scatter`, `hist`) the first color
