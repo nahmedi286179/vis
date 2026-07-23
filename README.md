@@ -48,6 +48,23 @@ Every helper accepts a pandas `Series` or `DataFrame`, optional `title`,
 pass straight through to matplotlib, and each returns the `Axes` so you can keep
 customizing.
 
+### Custom colors
+
+Every helper takes an optional `colors` argument. Leave it out to use the
+built-in colorblind-safe palette, or pass your own to override it:
+
+```python
+# one color per series
+pp.line(df, colors=["#111111", "#ff5500"])
+
+# a single color (accepts a list or a bare string)
+pp.hist(scores, colors="#8800ff")
+```
+
+For multi-series charts (`line`, `bar`, `barh`) the colors are applied one per
+series, in order. For single-color charts (`scatter`, `hist`) the first color
+is used.
+
 ## What the theme changes
 
 - Colorblind-safe categorical palette, assigned in fixed order.

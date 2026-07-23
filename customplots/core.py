@@ -95,29 +95,54 @@ def _legend(ax, data):
         ax.legend(loc="best")
 
 
-def line(data, *, title=None, xlabel=None, ylabel=None, ax=None, **kwargs):
-    """Styled line chart from a pandas Series or DataFrame."""
+def _palette(colors):
+    """Normalize a user ``colors`` argument to a list, defaulting to PALETTE.
+
+    Accepts ``None`` (use the theme palette), a single color string, or any
+    sequence of colors.
+    """
+    if colors is None:
+        return list(PALETTE)
+    if isinstance(colors, str):
+        return [colors]
+    return list(colors)
+
+
+def line(data, *, colors=None, title=None, xlabel=None, ylabel=None, ax=None,
+         **kwargs):
+    """Styled line chart from a pandas Series or DataFrame.
+
+    ``colors`` optionally overrides the palette, one color per series.
+    """
     ax = _new_ax(ax, title, xlabel, ylabel)
-    data.plot(ax=ax, legend=False, **kwargs)
+    data.plot(ax=ax, legend=False, color=_palette(colors), **kwargs)
     _legend(ax, data)
     return ax
 
 
-def bar(data, *, title=None, xlabel=None, ylabel=None, ax=None, **kwargs):
-    """Styled vertical bar chart from a pandas Series or DataFrame."""
+def bar(data, *, colors=None, title=None, xlabel=None, ylabel=None, ax=None,
+        **kwargs):
+    """Styled vertical bar chart from a pandas Series or DataFrame.
+
+    ``colors`` optionally overrides the palette, one color per series.
+    """
     ax = _new_ax(ax, title, xlabel, ylabel)
     data.plot.bar(ax=ax, legend=False, width=0.72, edgecolor=_SURFACE,
-                  linewidth=1.5, **kwargs)
+                  linewidth=1.5, color=_palette(colors), **kwargs)
     ax.tick_params(axis="x", rotation=0)
     _legend(ax, data)
     return ax
 
 
-def barh(data, *, title=None, xlabel=None, ylabel=None, ax=None, **kwargs):
-    """Styled horizontal bar chart from a pandas Series or DataFrame."""
+def barh(data, *, colors=None, title=None, xlabel=None, ylabel=None, ax=None,
+         **kwargs):
+    """Styled horizontal bar chart from a pandas Series or DataFrame.
+
+    ``colors`` optionally overrides the palette, one color per series.
+    """
     ax = _new_ax(ax, title, xlabel, ylabel)
     data.plot.barh(ax=ax, legend=False, edgecolor=_SURFACE,
-                   linewidth=1.5, **kwargs)
+                   linewidth=1.5, color=_palette(colors), **kwargs)
     # Horizontal bars read better with a vertical grid instead.
     ax.grid(axis="x", color=_GRID, linewidth=0.8)
     ax.grid(axis="y", visible=False)
@@ -125,19 +150,25 @@ def barh(data, *, title=None, xlabel=None, ylabel=None, ax=None, **kwargs):
     return ax
 
 
-def scatter(data, x, y, *, title=None, xlabel=None, ylabel=None, ax=None,
-            **kwargs):
-    """Styled scatter plot of two columns from a DataFrame."""
+def scatter(data, x, y, *, colors=None, title=None, xlabel=None, ylabel=None,
+            ax=None, **kwargs):
+    """Styled scatter plot of two columns from a DataFrame.
+
+    ``colors`` optionally sets the point color (first entry if a list).
+    """
     ax = _new_ax(ax, title, xlabel or x, ylabel or y)
-    ax.scatter(data[x], data[y], color=PALETTE[0], alpha=0.8,
+    ax.scatter(data[x], data[y], color=_palette(colors)[0], alpha=0.8,
                edgecolor=_SURFACE, linewidth=0.8, **kwargs)
     return ax
 
 
-def hist(data, *, bins=20, title=None, xlabel=None, ylabel="count", ax=None,
-         **kwargs):
-    """Styled histogram from a pandas Series or 1-D data."""
+def hist(data, *, colors=None, bins=20, title=None, xlabel=None,
+         ylabel="count", ax=None, **kwargs):
+    """Styled histogram from a pandas Series or 1-D data.
+
+    ``colors`` optionally sets the bar color (first entry if a list).
+    """
     ax = _new_ax(ax, title, xlabel, ylabel)
-    ax.hist(data, bins=bins, color=PALETTE[0], edgecolor=_SURFACE,
+    ax.hist(data, bins=bins, color=_palette(colors)[0], edgecolor=_SURFACE,
             linewidth=0.8, **kwargs)
     return ax
