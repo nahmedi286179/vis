@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-import customplots as pp
+import customplots as cust
 
 rng = np.random.default_rng(7)
 
@@ -22,10 +22,10 @@ samples = pd.Series(rng.normal(loc=50, scale=12, size=500))
 
 fig, axes = plt.subplots(2, 2, figsize=(13, 9))
 
-pp.line(revenue, title="Revenue by region", ylabel="$k", ax=axes[0, 0])
-pp.bar(revenue, title="Revenue by region", ylabel="$k", ax=axes[0, 1])
-pp.scatter(points, "x", "y", title="Sample scatter", ax=axes[1, 0])
-pp.hist(samples, title="Score distribution", xlabel="score", ax=axes[1, 1])
+cust.line(revenue, title="Revenue by region", ylabel="$k", ax=axes[0, 0])
+cust.bar(revenue, title="Revenue by region", ylabel="$k", ax=axes[0, 1])
+cust.scatter(points, "x", "y", title="Sample scatter", ax=axes[1, 0])
+cust.hist(samples, title="Score distribution", xlabel="score", ax=axes[1, 1])
 
 fig.tight_layout()
 fig.savefig("examples/gallery.png", dpi=110)

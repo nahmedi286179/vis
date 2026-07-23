@@ -20,28 +20,28 @@ Requires `matplotlib` and `pandas`.
 
 ```python
 import pandas as pd
-import customplots as pp
+import customplots as cust
 
 df = pd.DataFrame(
     {"north": [12, 15, 14, 18, 21, 24], "south": [8, 9, 13, 12, 16, 19]},
     index=["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
 )
 
-pp.line(df, title="Revenue by region", ylabel="$k")
+cust.line(df, title="Revenue by region", ylabel="$k")
 ```
 
 The theme is applied automatically on `import customplots`. If another library
-resets matplotlib's style, call `pp.use()` again to reapply it.
+resets matplotlib's style, call `cust.use()` again to reapply it.
 
 ### Helpers
 
 | Function | Chart |
 |----------|-------|
-| `pp.line(data, ...)`    | line chart |
-| `pp.bar(data, ...)`     | vertical bar chart |
-| `pp.barh(data, ...)`    | horizontal bar chart |
-| `pp.scatter(data, x, y, ...)` | scatter plot of two columns |
-| `pp.hist(data, ...)`    | histogram |
+| `cust.line(data, ...)`    | line chart |
+| `cust.bar(data, ...)`     | vertical bar chart |
+| `cust.barh(data, ...)`    | horizontal bar chart |
+| `cust.scatter(data, x, y, ...)` | scatter plot of two columns |
+| `cust.hist(data, ...)`    | histogram |
 
 Every helper accepts a pandas `Series` or `DataFrame`, optional `title`,
 `xlabel`, `ylabel`, and an existing `ax` to draw into. Extra keyword arguments
@@ -56,14 +56,14 @@ plain **color names** — no need to know hex codes:
 
 ```python
 # one color per series, by name
-pp.line(df, colors=["black", "orange"])
-pp.bar(df, colors=["red", "green", "blue"])
+cust.line(df, colors=["black", "orange"])
+cust.bar(df, colors=["red", "green", "blue"])
 
 # a single color (accepts a list or a bare string)
-pp.hist(scores, colors="purple")
+cust.hist(scores, colors="purple")
 
 # hex codes work too, if you want an exact shade
-pp.line(df, colors=["#111111", "#ff5500"])
+cust.line(df, colors=["#111111", "#ff5500"])
 ```
 
 Common names: `black`, `white`, `gray` (or `grey`), `red`, `orange`, `yellow`,
