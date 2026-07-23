@@ -1,0 +1,70 @@
+# prettyplot
+
+Nicer-looking charts than pandas' defaults — in one import.
+
+pandas' built-in `.plot()` is great for a quick look, but the defaults are
+noisy: heavy spines, cramped titles, a color cycle that isn't colorblind-safe.
+`prettyplot` is a tiny wrapper (under 200 lines) that applies a clean,
+validated theme and gives you a handful of plotting helpers that take the same
+pandas objects you already have.
+
+## Install
+
+```bash
+pip install -e .
+```
+
+Requires `matplotlib` and `pandas`.
+
+## Usage
+
+```python
+import pandas as pd
+import prettyplot as pp
+
+df = pd.DataFrame(
+    {"north": [12, 15, 14, 18, 21, 24], "south": [8, 9, 13, 12, 16, 19]},
+    index=["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+)
+
+pp.line(df, title="Revenue by region", ylabel="$k")
+```
+
+The theme is applied automatically on `import prettyplot`. If another library
+resets matplotlib's style, call `pp.use()` again to reapply it.
+
+### Helpers
+
+| Function | Chart |
+|----------|-------|
+| `pp.line(data, ...)`    | line chart |
+| `pp.bar(data, ...)`     | vertical bar chart |
+| `pp.barh(data, ...)`    | horizontal bar chart |
+| `pp.scatter(data, x, y, ...)` | scatter plot of two columns |
+| `pp.hist(data, ...)`    | histogram |
+
+Every helper accepts a pandas `Series` or `DataFrame`, optional `title`,
+`xlabel`, `ylabel`, and an existing `ax` to draw into. Extra keyword arguments
+pass straight through to matplotlib, and each returns the `Axes` so you can keep
+customizing.
+
+## What the theme changes
+
+- Colorblind-safe categorical palette, assigned in fixed order.
+- Drops the top and right spines; soft horizontal gridlines only.
+- Left-aligned, bold titles with breathing room.
+- A legend appears automatically only when there are two or more series.
+
+## Gallery
+
+Run the demo to render every chart type into `examples/gallery.png`:
+
+```bash
+python examples/demo.py
+```
+
+![gallery](examples/gallery.png)
+
+## License
+
+MIT — see [LICENSE](LICENSE).
