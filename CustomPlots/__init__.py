@@ -1,9 +1,9 @@
-"""customplots — nicer-looking charts than pandas' defaults, in one import.
+"""CustomPlots — nicer-looking charts than pandas' defaults, in one import.
 
 Wraps matplotlib with a clean, validated theme and a handful of plotting
 helpers that accept pandas Series/DataFrames.
 
-    import customplots as cust
+    import CustomPlots as cust
     cust.use()                 # apply the theme globally
     cust.line(df)              # styled line chart
     cust.bar(df["sales"])      # styled bar chart

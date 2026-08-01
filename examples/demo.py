@@ -1,4 +1,4 @@
-"""Render every customplots chart type into a comparison image.
+"""Render every CustomPlots chart type into a comparison image.
 
 Run from the repo root:  python examples/demo.py
 Produces examples/gallery.png
@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-import customplots as cust
+import CustomPlots as cust
 
 rng = np.random.default_rng(7)
 

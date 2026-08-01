@@ -1,4 +1,4 @@
-"""Core theme and plotting helpers for customplots.
+"""Core theme and plotting helpers for CustomPlots.
 
 The design goal is simple: charts that look considered by default. We set a
 restrained matplotlib style (no chart junk, soft gridlines, a colorblind-safe
@@ -32,7 +32,7 @@ _SURFACE = "#fcfcfb"
 
 
 def use() -> None:
-    """Apply the customplots theme to matplotlib's global rcParams."""
+    """Apply the CustomPlots theme to matplotlib's global rcParams."""
     plt.rcParams.update({
         # Typography
         "font.family": "sans-serif",
