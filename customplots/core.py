@@ -9,12 +9,14 @@ from __future__ import annotations
 
 import matplotlib.pyplot as plt
 
-# Colorblind-safe categorical palette, assigned in fixed order (never cycled
-# past its length). Values are the validated data-viz reference palette.
+# Categorical palette, assigned in fixed order (never cycled past its length).
+# The first two slots are the project's default colors; the remaining slots
+# fall back to the validated colorblind-safe reference palette for charts with
+# three or more series.
 PALETTE = [
-    "#2a78d6",  # blue
+    "#266867",  # teal        (default 1 — also the single-color default)
+    "#051821",  # deep teal   (default 2)
     "#eb6834",  # orange
-    "#1baf7a",  # aqua
     "#eda100",  # yellow
     "#e87ba4",  # magenta
     "#008300",  # green
