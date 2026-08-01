@@ -19,7 +19,7 @@ from .core import (
 
 use()
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 __all__ = [
     "PALETTE", "use", "line", "bar", "barh", "scatter", "hist",
