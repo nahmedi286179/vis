@@ -74,6 +74,32 @@ For multi-series charts (`line`, `bar`, `barh`) the colors are applied one per
 series, in order. For single-color charts (`scatter`, `hist`) the first color
 is used.
 
+### Annotations
+
+Every plot function returns its matplotlib `Axes`, and these helpers layer a
+reference mark on top of it — so you can measure the data against a target,
+a mean, or a range:
+
+```python
+ax = cust.bar(df, title="Revenue by region")
+
+cust.constant_line(ax, 20, label="target")   # horizontal line to measure against
+cust.mean_line(ax, df.values.ravel())         # dashed line at the mean, auto-labeled
+cust.band(ax, 15, 25, label="goal range")     # shaded target range
+cust.label_bars(ax)                            # print each bar's value on top
+```
+
+| Function | What it adds |
+|----------|--------------|
+| `cust.constant_line(ax, value, axis="y", label=...)` | a horizontal (or vertical, `axis="x"`) reference line |
+| `cust.mean_line(ax, data, axis="y")` | a reference line at the mean of `data`, labeled with the value |
+| `cust.band(ax, low, high, axis="y")` | a shaded target range between two values |
+| `cust.add_point(ax, x, y, label=...)` | a highlighted marker at a single point |
+| `cust.label_bars(ax, fmt="{:.0f}")` | value labels on the bars of a bar chart |
+
+`constant_line`, `mean_line`, and `band` all take `axis="x"` to draw
+vertically instead of horizontally (handy for marking a mean on a histogram).
+
 ## What the theme changes
 
 - Colorblind-safe categorical palette, assigned in fixed order.

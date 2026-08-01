@@ -12,10 +12,16 @@ The theme is applied automatically on import; call ``cust.use()`` again after
 any other library resets matplotlib's rcParams.
 """
 
-from .core import PALETTE, use, line, bar, barh, scatter, hist
+from .core import (
+    PALETTE, use, line, bar, barh, scatter, hist,
+    constant_line, mean_line, band, add_point, label_bars,
+)
 
 use()
 
 __version__ = "0.1.0"
 
-__all__ = ["PALETTE", "use", "line", "bar", "barh", "scatter", "hist"]
+__all__ = [
+    "PALETTE", "use", "line", "bar", "barh", "scatter", "hist",
+    "constant_line", "mean_line", "band", "add_point", "label_bars",
+]

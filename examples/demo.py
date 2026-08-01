@@ -23,9 +23,17 @@ samples = pd.Series(rng.normal(loc=50, scale=12, size=500))
 fig, axes = plt.subplots(2, 2, figsize=(13, 9))
 
 cust.line(revenue, title="Revenue by region", ylabel="$k", ax=axes[0, 0])
+cust.constant_line(axes[0, 0], 20, label="target")
+
 cust.bar(revenue, title="Revenue by region", ylabel="$k", ax=axes[0, 1])
+cust.mean_line(axes[0, 1], revenue.values.ravel())
+cust.label_bars(axes[0, 1])
+
 cust.scatter(points, "x", "y", title="Sample scatter", ax=axes[1, 0])
+cust.add_point(axes[1, 0], 0, 0, label="origin")
+
 cust.hist(samples, title="Score distribution", xlabel="score", ax=axes[1, 1])
+cust.mean_line(axes[1, 1], samples, axis="x")
 
 fig.tight_layout()
 fig.savefig("examples/gallery.png", dpi=110)

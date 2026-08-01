@@ -8,6 +8,7 @@ categorical palette) and expose thin wrappers that take pandas objects.
 from __future__ import annotations
 
 import matplotlib.pyplot as plt
+import numpy as np
 
 # Categorical palette, assigned in fixed order (never cycled past its length).
 # The first two slots are the project's default colors; the remaining slots
@@ -173,4 +174,70 @@ def hist(data, *, colors=None, bins=20, title=None, xlabel=None,
     ax = _new_ax(ax, title, xlabel, ylabel)
     ax.hist(data, bins=bins, color=_palette(colors)[0], edgecolor=_SURFACE,
             linewidth=0.8, **kwargs)
+    return ax
+
+
+# --- Annotation helpers -----------------------------------------------------
+# These take an existing Axes (the object every plot function returns) and
+# layer a reference mark on top, so you can measure the data against something.
+
+
+def constant_line(ax, value, *, axis="y", label=None, color=None,
+                  linestyle="--", **kwargs):
+    """Draw a constant reference line to measure the data against.
+
+    ``axis="y"`` draws a horizontal line at height ``value`` (a target, a
+    threshold, a mean); ``axis="x"`` draws a vertical line at ``value``.
+    An optional ``label`` is printed next to the line.
+    """
+    color = color or _MUTED
+    draw = ax.axhline if axis == "y" else ax.axvline
+    draw(value, color=color, linestyle=linestyle, linewidth=1.5, zorder=1.5,
+         **kwargs)
+    if label:
+        if axis == "y":
+            ax.text(0.01, value, label, transform=ax.get_yaxis_transform(),
+                    va="bottom", ha="left", color=color, fontsize=9)
+        else:
+            ax.text(value, 0.98, label, transform=ax.get_xaxis_transform(),
+                    va="top", ha="left", color=color, fontsize=9, rotation=90)
+    return ax
+
+
+def mean_line(ax, data, *, axis="y", label="mean", **kwargs):
+    """Draw a constant line at the mean of ``data`` (a Series/array/list)."""
+    value = float(np.asarray(data, dtype=float).mean())
+    if label == "mean":
+        label = f"mean {value:.1f}"
+    return constant_line(ax, value, axis=axis, label=label, **kwargs)
+
+
+def band(ax, low, high, *, axis="y", color=None, alpha=0.12, label=None,
+         **kwargs):
+    """Shade a target range between ``low`` and ``high`` to measure against."""
+    color = color or PALETTE[0]
+    span = ax.axhspan if axis == "y" else ax.axvspan
+    span(low, high, color=color, alpha=alpha, linewidth=0, zorder=0,
+         label=label, **kwargs)
+    return ax
+
+
+def add_point(ax, x, y, *, label=None, color=None, size=70, **kwargs):
+    """Highlight a single (x, y) point with a marker and optional label."""
+    color = color or PALETTE[-1]
+    ax.scatter([x], [y], color=color, s=size, zorder=5, edgecolor=_SURFACE,
+               linewidth=1.4, **kwargs)
+    if label:
+        ax.annotate(label, (x, y), textcoords="offset points", xytext=(8, 8),
+                    color=_INK, fontsize=9, fontweight="bold")
+    return ax
+
+
+def label_bars(ax, *, fmt="{:.0f}", color=None, padding=3):
+    """Print value labels on the bars of a bar/barh chart."""
+    color = color or _INK
+    for container in ax.containers:
+        labels = [fmt.format(v) for v in container.datavalues]
+        ax.bar_label(container, labels=labels, padding=padding, color=color,
+                     fontsize=9)
     return ax
